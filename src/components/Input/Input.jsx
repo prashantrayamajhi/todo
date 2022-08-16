@@ -3,6 +3,11 @@ import { useState } from "react";
 const Input = ({ todos, setTodos }) => {
   const [data, setData] = useState("");
 
+  const handleDelete = (item) => {
+    setTodos(todos.filter((todo) => todo !== item));
+    localStorage.removeItem("todos", item);
+  };
+
   return (
     <>
       <input
@@ -31,6 +36,13 @@ const Input = ({ todos, setTodos }) => {
               }}
             >
               {item}
+              <button
+                onClick={() => {
+                  handleDelete(item);
+                }}
+              >
+                Delete
+              </button>
             </li>
           );
         })}

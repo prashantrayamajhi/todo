@@ -5,7 +5,13 @@ const Input = ({ todos, setTodos }) => {
 
   const handleDelete = (item) => {
     setTodos(todos.filter((todo) => todo !== item));
-    localStorage.removeItem("todos", item);
+    // remove item from localsotrage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  const handleUpdate = (item) => {
+    setData(item);
+    handleDelete(item);
   };
 
   return (
@@ -29,12 +35,7 @@ const Input = ({ todos, setTodos }) => {
       <ol>
         {todos.map((item, index) => {
           return (
-            <li
-              key={index}
-              onClick={() => {
-                setTodos(todos.filter((i) => i !== item));
-              }}
-            >
+            <li key={index}>
               {item}
               <button
                 onClick={() => {
@@ -42,6 +43,13 @@ const Input = ({ todos, setTodos }) => {
                 }}
               >
                 Delete
+              </button>
+              <button
+                onClick={() => {
+                  handleUpdate(item);
+                }}
+              >
+                Update
               </button>
             </li>
           );
